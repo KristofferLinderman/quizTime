@@ -17,7 +17,6 @@ class Timer extends Component {
   }
 
   startTimer() {
-    console.log("Start timer");
     this.timer = setInterval(this.countDownTimer.bind(this), 1000);
   }
 

@@ -17,20 +17,11 @@ export default class Question extends Component {
     const input = event.target.value;
     const correctAnswer = this.props.question.correctAnswer;
 
-    console.log("Input: " + input + " Corr: " + correctAnswer);
-
     if (input === correctAnswer) {
-      console.log("Correct!");
       event.target.classList.add("btn-success");
-      /**
-       * Call game to let it know that correct was selected
-       * Stop the timer
-       *
-       */
       this.setState({ correctAnswer: true });
       this.props.correctAnswer();
     } else {
-      console.log("Wrong!");
       event.target.classList.add("btn-danger");
       this.setState({ correctAnswer: false });
     }

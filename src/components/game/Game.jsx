@@ -26,8 +26,13 @@ class Game extends Component {
   }
 
   async componentDidMount() {
+    const difficulty = this.props.difficulty;
+    console.log(
+      `https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple`
+    );
+
     const apiResponse = await fetch(
-      "https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple"
+      `https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple`
     );
     const json = await apiResponse.json();
 

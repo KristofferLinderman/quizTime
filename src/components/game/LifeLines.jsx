@@ -4,7 +4,7 @@ class LifeLines extends Component {
     const { onClick } = this.props;
 
     return (
-      <div className="card">
+      <div className="card mt-3">
         <div className="card-body">
           <h1 className="card-title">Life Lines</h1>
           <button
