@@ -1,17 +1,29 @@
 import React, { Component } from "react";
 import Question from "../questions/Question";
+import Score from "./Score";
+import GameOver from "./GameOver";
+import LifeLines from "./LifeLines";
 
 class Game extends Component {
-  state = {
-    currentQuestion: 0,
-    questions: [
-      {
-        question: "",
-        correctAnswer: "",
-        answers: [""]
-      }
-    ]
-  };
+  constructor() {
+    super();
+    this.state = {
+      currentQuestionIndex: 0,
+      questions: [
+        {
+          question: "",
+          correctAnswer: "",
+          answers: [""]
+        }
+      ],
+      score: 0,
+      gameOver: false,
+      fiftyPercent: true,
+      timeIncrease: true
+    };
+
+    this.child = React.createRef();
+  }
 
   async componentDidMount() {
     const apiResponse = await fetch(
@@ -60,19 +72,59 @@ class Game extends Component {
   }
 
   nextQuestion() {
-    const newQuestion = this.state.currentQuestion + 1;
-    this.setState({ currentQuestion: newQuestion });
+    const nextQuestionIndex = this.state.currentQuestionIndex + 1;
+    if (nextQuestionIndex === this.state.questions.length) {
+      this.gameOver();
+    } else this.setState({ currentQuestionIndex: nextQuestionIndex });
+  }
+
+  correctAnswer() {
+    this.setState({ score: this.state.score + 1 });
+  }
+
+  gameOver() {
+    this.setState({ gameOver: true });
+  }
+
+  onLifeLineClick(event) {
+    event.target.disabled = true;
+
+    const input = event.target.value;
+
+    if (input === "fiftyPercent") {
+      this.setState({ fiftyPercent: false });
+      this.child.current.fiftyPercent();
+    } else if (input === "timeIncrease") {
+      this.setState({ timeIncrease: false });
+      this.child.current.timeIncrease();
+    }
   }
 
   render() {
-    const { questions, currentQuestion } = this.state;
+    const {
+      questions,
+      currentQuestionIndex,
+      gameOver,
+      score,
+      fiftyPercent,
+      timeIncrease
+    } = this.state;
     return (
       <div>
-        <Question
-          question={questions[currentQuestion]}
-          id={currentQuestion}
-          nextQuestion={this.nextQuestion.bind(this)}
-        />
+        {!gameOver && (
+          <div>
+            <Score score={this.state.score} />
+            <Question
+              question={questions[currentQuestionIndex]}
+              id={currentQuestionIndex}
+              nextQuestion={this.nextQuestion.bind(this)}
+              correctAnswer={this.correctAnswer.bind(this)}
+              ref={this.child}
+            />
+            <LifeLines onClick={this.onLifeLineClick.bind(this)} />
+          </div>
+        )}
+        {gameOver && <GameOver score={score} />}
       </div>
     );
   }

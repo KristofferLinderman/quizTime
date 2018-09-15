@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classnames from "classnames";
 //Time to answer the question
-const startTime = 3;
+const startTime = 8;
 
 class Timer extends Component {
   constructor() {
@@ -29,6 +29,10 @@ class Timer extends Component {
 
   stopTimer() {
     clearInterval(this.timer);
+  }
+
+  timeIncrease() {
+    this.setState({ time: this.state.time + 10 });
   }
 
   countDownTimer() {

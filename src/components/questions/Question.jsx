@@ -28,6 +28,7 @@ export default class Question extends Component {
        *
        */
       this.setState({ correctAnswer: true });
+      this.props.correctAnswer();
     } else {
       console.log("Wrong!");
       event.target.classList.add("btn-danger");
@@ -50,6 +51,23 @@ export default class Question extends Component {
     this.setState({ questionOver: false, correctAnswer: false });
     this.props.nextQuestion();
     this.child.current.restartTimer();
+  }
+
+  fiftyPercent() {
+    console.log("50/50");
+    const { correctAnswer, answers } = this.props.question;
+    let nbrOfDeletes = 0;
+    for (let i = 0; i < answers.length; i++) {
+      if (answers[i] !== correctAnswer && nbrOfDeletes <= 2) {
+        answers.splice(i, 1);
+        nbrOfDeletes++;
+      }
+    }
+  }
+
+  timeIncrease() {
+    console.log("Increase");
+    this.child.current.timeIncrease();
   }
 
   render() {
