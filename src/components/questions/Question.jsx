@@ -74,13 +74,18 @@ export default class Question extends Component {
     // console.log(this.props.question);
 
     const { question, correctAnswer, answers } = this.props.question;
+    console.log(question);
+
     const id = this.props.id + 1;
     return (
       <div className="card">
         <Timer timesUp={this.timesUp.bind(this)} ref={this.child} />
         <div className="card-body">
           <h1 className="card-title">Question {id}</h1>
-          <p className="card-text">{question}</p>
+          <p
+            className="card-text"
+            dangerouslySetInnerHTML={{ __html: `${question}` }}
+          />
           {!this.state.questionOver && (
             <QuestionInput
               onClick={this.onClick.bind(this)}

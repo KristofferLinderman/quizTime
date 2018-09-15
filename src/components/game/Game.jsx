@@ -31,7 +31,7 @@ class Game extends Component {
     );
     const json = await apiResponse.json();
 
-    // console.log(json.results);
+    console.log(json.results);
     // this.setState({ questions: json.results });
 
     const questions = [];
