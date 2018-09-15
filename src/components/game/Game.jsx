@@ -87,16 +87,15 @@ class Game extends Component {
   }
 
   onLifeLineClick(event) {
-    event.target.disabled = true;
-
     const input = event.target.value;
 
-    if (input === "fiftyPercent") {
+    if (input === "fiftyPercent" && this.child.current.fiftyPercent()) {
       this.setState({ fiftyPercent: false });
-      this.child.current.fiftyPercent();
-    } else if (input === "timeIncrease") {
+      event.target.disabled = true;
+    } else if (input === "timeIncrease" && this.child.current.timeIncrease()) {
+      console.log("True");
+      event.target.disabled = true;
       this.setState({ timeIncrease: false });
-      this.child.current.timeIncrease();
     }
   }
 

@@ -54,20 +54,25 @@ export default class Question extends Component {
   }
 
   fiftyPercent() {
-    console.log("50/50");
-    const { correctAnswer, answers } = this.props.question;
-    let nbrOfDeletes = 0;
-    for (let i = 0; i < answers.length; i++) {
-      if (answers[i] !== correctAnswer && nbrOfDeletes <= 2) {
-        answers.splice(i, 1);
-        nbrOfDeletes++;
+    //Only run if the question is NOT over
+    if (!this.state.questionOver) {
+      const { correctAnswer, answers } = this.props.question;
+      let nbrOfDeletes = 0;
+      for (let i = 0; i < answers.length; i++) {
+        if (answers[i] !== correctAnswer && nbrOfDeletes <= 2) {
+          answers.splice(i, 1);
+          nbrOfDeletes++;
+        }
       }
     }
+    //Return true if the question is NOT over, i.e if the 50/50 was activated
+    return !this.state.questionOver;
   }
 
   timeIncrease() {
-    console.log("Increase");
-    this.child.current.timeIncrease();
+    //Only run if the question is NOT over
+    if (!this.state.questionOver) this.child.current.timeIncrease();
+    return !this.state.questionOver;
   }
 
   render() {
@@ -95,10 +100,8 @@ export default class Question extends Component {
             !this.state.correctAnswer && (
               <div>
                 <h3 className="text-danger">Wrong Answer</h3>
-                <p>
-                  <span className="font-weight-bold">Correct Answer:</span>
-                  {correctAnswer}
-                </p>
+                <span className="font-weight-bold">Correct Answer:</span>
+                <p dangerouslySetInnerHTML={{ __html: `${correctAnswer}` }} />
                 <button
                   onClick={this.nextQuestion.bind(this)}
                   className="btn btn-primary"

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classnames from "classnames";
 //Time to answer the question
 const startTime = 8;
 
@@ -57,7 +56,12 @@ class Timer extends Component {
     const { time } = this.state;
     return (
       <div>
-        {time > 0 && <h3 className="timer-text">{time}s</h3>}
+        {time > 0 && (
+          <div>
+            <h3>Time:</h3>
+            <h3 className="timer-text">{time}s</h3>
+          </div>
+        )}
         {time === 0 && <h1 className="text-danger">Time's Up!</h1>}
       </div>
     );
