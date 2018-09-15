@@ -101,14 +101,7 @@ class Game extends Component {
   }
 
   render() {
-    const {
-      questions,
-      currentQuestionIndex,
-      gameOver,
-      score,
-      fiftyPercent,
-      timeIncrease
-    } = this.state;
+    const { questions, currentQuestionIndex, gameOver, score } = this.state;
     return (
       <div>
         {!gameOver && (

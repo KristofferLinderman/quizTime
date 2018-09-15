@@ -57,9 +57,8 @@ class Timer extends Component {
     const { time } = this.state;
     return (
       <div>
-        <h3 className={classnames("timer-text", { "time-ended": time === 0 })}>
-          {time}s
-        </h3>
+        {time > 0 && <h3 className="timer-text">{time}s</h3>}
+        {time === 0 && <h1 className="text-danger">Time's Up!</h1>}
       </div>
     );
   }

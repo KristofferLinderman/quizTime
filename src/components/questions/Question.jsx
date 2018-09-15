@@ -74,7 +74,6 @@ export default class Question extends Component {
     // console.log(this.props.question);
 
     const { question, correctAnswer, answers } = this.props.question;
-    console.log(question);
 
     const id = this.props.id + 1;
     return (
