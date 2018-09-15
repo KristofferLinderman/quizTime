@@ -3,7 +3,6 @@ import React, { Component } from "react";
 class QuestionInput extends Component {
   render() {
     const answers = this.props.answers;
-    console.log(this.props.answers);
 
     return (
       <div>

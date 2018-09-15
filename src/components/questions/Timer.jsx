@@ -1,32 +1,51 @@
 import React, { Component } from "react";
+import classnames from "classnames";
+//Time to answer the question
+const startTime = 3;
 
 class Timer extends Component {
-  state = {
-    time: 15,
-    timer: 0
-  };
+  constructor() {
+    super();
 
-  startTimer() {
-    console.log("Start timer");
-    this.timer = setInterval(this.countDown.bind(this), 1000);
+    this.state = {
+      time: startTime,
+      timer: 0
+    };
   }
 
   componentDidMount() {
     this.startTimer();
   }
 
-  countDown() {
+  startTimer() {
+    console.log("Start timer");
+    this.timer = setInterval(this.countDownTimer.bind(this), 1000);
+  }
+
+  restartTimer() {
+    this.setState({ time: startTime });
+    this.startTimer();
+  }
+
+  stopTimer() {
+    clearInterval(this.timer);
+  }
+
+  countDownTimer() {
     //Take the seconds from the state and set state so it re-renders the text
     let currentTime = this.state.time - 1;
     this.setState({
       time: currentTime
     });
 
-    // Check if the time is up
-    if (currentTime === 0) {
+    this.checkTime();
+  }
+
+  checkTime() {
+    if (this.state.time === 0) {
       //Calls the function given from the props
       this.props.timesUp();
-      clearInterval(this.timer);
+      this.stopTimer();
     }
   }
 
@@ -34,7 +53,9 @@ class Timer extends Component {
     const { time } = this.state;
     return (
       <div>
-        <h3 className="timer-text">{time}s</h3>
+        <h3 className={classnames("timer-text", { "time-ended": time === 0 })}>
+          {time}s
+        </h3>
       </div>
     );
   }

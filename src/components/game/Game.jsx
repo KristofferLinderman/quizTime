@@ -24,8 +24,11 @@ class Game extends Component {
 
     const questions = [];
     json.results.forEach(element => {
-      let answersArray = [...element.incorrect_answers, element.correct_answer];
-      answersArray = this.shuffle(answersArray);
+      // let answersArray = ;
+      const answersArray = this.shuffle([
+        ...element.incorrect_answers,
+        element.correct_answer
+      ]);
 
       const newQuestion = {
         question: element.question,
@@ -33,7 +36,6 @@ class Game extends Component {
         correctAnswer: element.correct_answer
       };
       questions.push(newQuestion);
-      console.log(newQuestion.answers);
     });
     this.setState({ questions });
     console.log(this.state);
@@ -53,6 +55,7 @@ class Game extends Component {
       inputArray[randomIndex] = inputArray[i];
       inputArray[i] = tempItem;
     }
+
     return inputArray;
   }
 

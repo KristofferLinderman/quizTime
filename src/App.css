@@ -1,7 +1,11 @@
 .App {
-    text-align: center;
+  text-align: center;
 }
 
 .answer-btn {
-    margin: 5px;
+  margin: 5px;
+}
+
+.time-ended {
+  color: red;
 }
