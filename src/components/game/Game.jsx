@@ -6,38 +6,54 @@ class Game extends Component {
     currentQuestion: 0,
     questions: [
       {
-        question: "Which Apollo mission was the first one to land on the Moon?",
-        correctAnswer: "Apollo 11",
-        answers: ["Apollo 11", "Apollo 10", "Apollo 9", "Apollo 13"]
-      },
-      {
-        question: "Ringo Starr of The Beatles mainly played what instrument?",
-        correctAnswer: "Drums",
-        answers: ["Drums", "Bass", "Guitar", "Piano"]
+        question: "",
+        correctAnswer: "",
+        answers: [""]
       }
     ]
   };
 
-  componentDidMount() {
-    fetch("https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple")
-      .then(response => response.json())
-      .then(json => {
-        // console.log(json.results);
-        // this.setState({ questions: json.results });
-        const questions = [];
-        json.results.forEach(element => {
-          console.log(element);
-          const newQuestion = {
-            question: element.question,
-            answers: [...element.incorrect_answers, element.correct_answer],
-            correctAnswer: element.correct_answer
-          };
-          questions.push(newQuestion);
-        });
-        // console.log(questions);
-        this.setState({ questions });
-        console.log(this.state);
-      });
+  async componentDidMount() {
+    const apiResponse = await fetch(
+      "https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple"
+    );
+    const json = await apiResponse.json();
+
+    // console.log(json.results);
+    // this.setState({ questions: json.results });
+
+    const questions = [];
+    json.results.forEach(element => {
+      let answersArray = [...element.incorrect_answers, element.correct_answer];
+      answersArray = this.shuffle(answersArray);
+
+      const newQuestion = {
+        question: element.question,
+        answers: answersArray,
+        correctAnswer: element.correct_answer
+      };
+      questions.push(newQuestion);
+      console.log(newQuestion.answers);
+    });
+    this.setState({ questions });
+    console.log(this.state);
+  }
+
+  /**
+   *Shuffles the content of the array using Fisher-Yates
+   * @param {Array} array containing the data to shuffle
+   */
+  shuffle(inputArray) {
+    for (let i = inputArray.length - 1; i > 0; i--) {
+      //Get index that can range from 0 to the index of current item
+      const randomIndex = Math.floor(Math.random() * (i + 1));
+      const tempItem = inputArray[randomIndex];
+
+      //Swap places
+      inputArray[randomIndex] = inputArray[i];
+      inputArray[i] = tempItem;
+    }
+    return inputArray;
   }
 
   nextQuestion() {
@@ -49,13 +65,6 @@ class Game extends Component {
     const { questions, currentQuestion } = this.state;
     return (
       <div>
-        <button
-          onClick={() => {
-            this.setState({ currentQuestion: 1 });
-          }}
-        >
-          Next
-        </button>
         <Question
           question={questions[currentQuestion]}
           id={currentQuestion}
