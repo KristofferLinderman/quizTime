@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class QuestionInput extends Component {
   render() {
@@ -48,5 +49,10 @@ class QuestionInput extends Component {
     );
   }
 }
+
+QuestionInput.propTypes = {
+  answers: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired
+};
 
 export default QuestionInput;

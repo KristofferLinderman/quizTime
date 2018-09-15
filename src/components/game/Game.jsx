@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 import Question from "../questions/Question";
 import Score from "./Score";
 import GameOver from "./GameOver";
@@ -55,7 +57,6 @@ class Game extends Component {
       questions.push(newQuestion);
     });
     this.setState({ questions });
-    console.log(this.state);
   }
 
   /**
@@ -95,10 +96,9 @@ class Game extends Component {
     const input = event.target.value;
 
     if (input === "fiftyPercent" && this.child.current.fiftyPercent()) {
-      this.setState({ fiftyPercent: false });
       event.target.disabled = true;
+      this.setState({ fiftyPercent: false });
     } else if (input === "timeIncrease" && this.child.current.timeIncrease()) {
-      console.log("True");
       event.target.disabled = true;
       this.setState({ timeIncrease: false });
     }
@@ -126,5 +126,9 @@ class Game extends Component {
     );
   }
 }
+
+Game.propTypes = {
+  difficulty: PropTypes.string.isRequired
+};
 
 export default Game;

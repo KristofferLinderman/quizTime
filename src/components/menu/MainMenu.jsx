@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class MainMenu extends Component {
   state = {
-    difficulty: "Easy"
+    difficulty: "easy"
   };
   onClick(event) {
-    console.log(event.target.value);
     this.setState({ difficulty: event.target.value });
   }
   startGame(event) {
@@ -53,5 +53,9 @@ class MainMenu extends Component {
     );
   }
 }
+
+MainMenu.propTypes = {
+  startGame: PropTypes.func.isRequired
+};
 
 export default MainMenu;

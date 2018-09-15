@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 class LifeLines extends Component {
   render() {
     const { onClick } = this.props;
@@ -26,5 +28,9 @@ class LifeLines extends Component {
     );
   }
 }
+
+LifeLines.propTypes = {
+  onClick: PropTypes.func.isRequired
+};
 
 export default LifeLines;

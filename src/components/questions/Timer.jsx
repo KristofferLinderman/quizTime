@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 //Time to answer the question
 const startTime = 8;
 
@@ -35,7 +36,7 @@ class Timer extends Component {
 
   countDownTimer() {
     //Take the seconds from the state and set state so it re-renders the text
-    let currentTime = this.state.time - 1;
+    const currentTime = this.state.time - 1;
     this.setState({
       time: currentTime
     });
@@ -66,5 +67,9 @@ class Timer extends Component {
     );
   }
 }
+
+Timer.propTypes = {
+  timesUp: PropTypes.func.isRequired
+};
 
 export default Timer;

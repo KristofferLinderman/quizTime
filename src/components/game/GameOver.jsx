@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class GameOver extends Component {
   render() {
@@ -10,5 +11,7 @@ class GameOver extends Component {
     );
   }
 }
+
+GameOver.propTypes = { score: PropTypes.number.isRequired };
 
 export default GameOver;

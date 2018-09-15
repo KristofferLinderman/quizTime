@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 import Timer from "./Timer";
 import QuestionInput from "./QuestionInput";
 
-export default class Question extends Component {
+class Question extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
+
     this.child = React.createRef();
 
     this.state = {
@@ -119,3 +123,12 @@ export default class Question extends Component {
     );
   }
 }
+
+Question.propTypes = {
+  correctAnswer: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  nextQuestion: PropTypes.func.isRequired,
+  question: PropTypes.object.isRequired
+};
+
+export default Question;
