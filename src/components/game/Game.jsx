@@ -5,6 +5,11 @@ import Question from "../questions/Question";
 import Score from "./Score";
 import GameOver from "./GameOver";
 import LifeLines from "./LifeLines";
+import {
+  CORRECT_ANSWER,
+  INCORRECT_ANSWER,
+  UNASWERED_ANSWER
+} from "../questions/AnswerTypes";
 
 class Game extends Component {
   constructor() {
@@ -18,7 +23,7 @@ class Game extends Component {
           answers: [""]
         }
       ],
-      score: 0,
+      score: { correct: 0, incorrect: 0, unanswered: 0 },
       gameOver: false,
       fiftyPercent: true,
       timeIncrease: true
@@ -29,16 +34,13 @@ class Game extends Component {
 
   async componentDidMount() {
     const difficulty = this.props.difficulty;
-    console.log(
-      `https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple`
-    );
 
     const apiResponse = await fetch(
       `https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple`
     );
     const json = await apiResponse.json();
 
-    console.log(json.results);
+    // console.log(json.results);
     // this.setState({ questions: json.results });
 
     const questions = [];
@@ -84,8 +86,22 @@ class Game extends Component {
     } else this.setState({ currentQuestionIndex: nextQuestionIndex });
   }
 
-  correctAnswer() {
-    this.setState({ score: this.state.score + 1 });
+  questionAnswered(id, answerType) {
+    let newScore = this.state.score;
+    switch (answerType) {
+      case CORRECT_ANSWER:
+        newScore.correct = this.state.score.correct + 1;
+        break;
+      case INCORRECT_ANSWER:
+        newScore.incorrect = this.state.score.incorrect + 1;
+        break;
+      case UNASWERED_ANSWER:
+        newScore.unanswered = this.state.score.unanswered + 1;
+        break;
+      default:
+        break;
+    }
+    this.setState({ score: newScore });
   }
 
   gameOver() {
@@ -110,12 +126,12 @@ class Game extends Component {
       <div>
         {!gameOver && (
           <div>
-            <Score score={this.state.score} />
+            <Score score={this.state.score.correct} />
             <Question
               question={questions[currentQuestionIndex]}
               id={currentQuestionIndex}
               nextQuestion={this.nextQuestion.bind(this)}
-              correctAnswer={this.correctAnswer.bind(this)}
+              questionAnswered={this.questionAnswered.bind(this)}
               ref={this.child}
             />
             <LifeLines onClick={this.onLifeLineClick.bind(this)} />

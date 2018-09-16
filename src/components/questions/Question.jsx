@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 
 import Timer from "./Timer";
 import QuestionInput from "./QuestionInput";
+import {
+  CORRECT_ANSWER,
+  INCORRECT_ANSWER,
+  UNASWERED_ANSWER
+} from "../questions/AnswerTypes";
 
 class Question extends Component {
   constructor(props) {
@@ -24,21 +29,23 @@ class Question extends Component {
     if (input === correctAnswer) {
       event.target.classList.add("btn-success");
       this.setState({ correctAnswer: true });
-      this.props.correctAnswer();
+      this.props.questionAnswered(this.props.id, CORRECT_ANSWER);
     } else {
       event.target.classList.add("btn-danger");
       this.setState({ correctAnswer: false });
+      this.props.questionAnswered(this.props.id, INCORRECT_ANSWER);
     }
     this.questionOver();
   }
 
   //Called when the timer is up
   timesUp(event) {
+    this.props.questionAnswered(this.props.id, UNASWERED_ANSWER);
     this.questionOver();
   }
 
   questionOver() {
-    this.child.current.stopTimer();
+    if (this.child.current != null) this.child.current.stopTimer();
     this.setState({ questionOver: true });
   }
 
@@ -125,7 +132,7 @@ class Question extends Component {
 }
 
 Question.propTypes = {
-  correctAnswer: PropTypes.func.isRequired,
+  questionAnswered: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   nextQuestion: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired
