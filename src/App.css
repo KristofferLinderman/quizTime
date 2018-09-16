@@ -1,11 +1,3 @@
-.App {
-  text-align: center;
-}
-
-.btn-margin {
-  margin: 5px;
-}
-
-.time-ended {
-  color: red;
+body {
+    background-color: #000e4e;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 //Time to answer the question
-const startTime = 8;
+const startTime = 15;
 
 class Timer extends Component {
   constructor() {
@@ -59,7 +59,7 @@ class Timer extends Component {
         {time > 0 && (
           <div>
             <h3>Time:</h3>
-            <h3 className="timer-text">{time}s</h3>
+            <h3>{time}s</h3>
           </div>
         )}
         {time === 0 && <h1 className="text-danger">Time's Up!</h1>}

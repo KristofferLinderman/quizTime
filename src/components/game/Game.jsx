@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Question from "../questions/Question";
 import Score from "./Score";
-import GameOver from "./GameOver";
+import Results from "./Results";
 import LifeLines from "./LifeLines";
 import {
   CORRECT_ANSWER,
@@ -30,6 +30,10 @@ class Game extends Component {
     };
 
     this.child = React.createRef();
+
+    this.nextQuestion = this.nextQuestion.bind(this);
+    this.onLifeLineClick = this.onLifeLineClick.bind(this);
+    this.questionAnswered = this.questionAnswered.bind(this);
   }
 
   async componentDidMount() {
@@ -40,23 +44,17 @@ class Game extends Component {
     );
     const json = await apiResponse.json();
 
-    // console.log(json.results);
-    // this.setState({ questions: json.results });
-
-    const questions = [];
-    json.results.forEach(element => {
-      // let answersArray = ;
+    const questions = json.results.map(element => {
       const answersArray = this.shuffle([
         ...element.incorrect_answers,
         element.correct_answer
       ]);
 
-      const newQuestion = {
+      return {
         question: element.question,
         answers: answersArray,
         correctAnswer: element.correct_answer
       };
-      questions.push(newQuestion);
     });
     this.setState({ questions });
   }
@@ -86,6 +84,7 @@ class Game extends Component {
     } else this.setState({ currentQuestionIndex: nextQuestionIndex });
   }
 
+  //Future implementation is to take the ID and then be able to show what question you missed
   questionAnswered(id, answerType) {
     let newScore = this.state.score;
     switch (answerType) {
@@ -122,6 +121,7 @@ class Game extends Component {
 
   render() {
     const { questions, currentQuestionIndex, gameOver, score } = this.state;
+    const { difficulty } = this.props;
     return (
       <div>
         {!gameOver && (
@@ -130,14 +130,14 @@ class Game extends Component {
             <Question
               question={questions[currentQuestionIndex]}
               id={currentQuestionIndex}
-              nextQuestion={this.nextQuestion.bind(this)}
-              questionAnswered={this.questionAnswered.bind(this)}
+              nextQuestion={this.nextQuestion}
+              questionAnswered={this.questionAnswered}
               ref={this.child}
             />
-            <LifeLines onClick={this.onLifeLineClick.bind(this)} />
+            <LifeLines onClick={this.onLifeLineClick} />
           </div>
         )}
-        {gameOver && <GameOver score={score} />}
+        {gameOver && <Results score={score} difficulty={difficulty} />}
       </div>
     );
   }

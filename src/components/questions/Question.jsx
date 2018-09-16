@@ -12,7 +12,6 @@ import {
 class Question extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
 
     this.child = React.createRef();
 
@@ -20,6 +19,10 @@ class Question extends Component {
       questionOver: false,
       correctAnswer: false
     };
+
+    this.timesUp = this.timesUp.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   onClick(event) {
@@ -78,14 +81,14 @@ class Question extends Component {
   }
 
   render() {
-    // console.log(this.props.question);
-
     const { question, correctAnswer, answers } = this.props.question;
-
     const id = this.props.id + 1;
+
+    const questionStyle = { color: "#000e4e" };
+
     return (
-      <div className="card">
-        <Timer timesUp={this.timesUp.bind(this)} ref={this.child} />
+      <div className="card" style={questionStyle}>
+        <Timer timesUp={this.timesUp} ref={this.child} />
         <div className="card-body">
           <h1 className="card-title">Question {id}</h1>
           <p
@@ -93,38 +96,25 @@ class Question extends Component {
             dangerouslySetInnerHTML={{ __html: `${question}` }}
           />
           {!this.state.questionOver && (
-            <QuestionInput
-              onClick={this.onClick.bind(this)}
-              answers={answers}
-            />
+            <QuestionInput onClick={this.onClick} answers={answers} />
           )}
-          {this.state.questionOver &&
-            !this.state.correctAnswer && (
-              <div>
-                <h3 className="text-danger">Wrong Answer</h3>
-                <span className="font-weight-bold">Correct Answer:</span>
-                <p dangerouslySetInnerHTML={{ __html: `${correctAnswer}` }} />
-                <button
-                  onClick={this.nextQuestion.bind(this)}
-                  className="btn btn-primary"
-                >
-                  Next Question
-                </button>
-              </div>
-            )}
-          {this.state.questionOver &&
-            this.state.correctAnswer && (
-              <div>
+          {this.state.questionOver && (
+            <div>
+              {this.state.correctAnswer ? (
                 <h3 className="text-success">You are correct!</h3>
-                <p>{correctAnswer}</p>
-                <button
-                  onClick={this.nextQuestion.bind(this)}
-                  className="btn btn-primary"
-                >
-                  Next Question
-                </button>
-              </div>
-            )}
+              ) : (
+                <div>
+                  <h3 className="text-danger">Wrong Answer</h3>
+                  <span className="font-weight-bold">Correct Answer:</span>
+                </div>
+              )}
+
+              <p dangerouslySetInnerHTML={{ __html: `${correctAnswer}` }} />
+              <button onClick={this.nextQuestion} className="btn btn-primary">
+                Next Question
+              </button>
+            </div>
+          )}
         </div>
       </div>
     );

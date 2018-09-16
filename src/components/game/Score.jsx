@@ -1,16 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-class Score extends Component {
-  render() {
-    const { score } = this.props;
-    return (
-      <div>
+const Score = props => {
+  const { score } = props;
+  const scoreStyle = { color: "#000e4e" };
+  return (
+    <div className="card mb-3" style={scoreStyle}>
+      <div className="card-body">
         <h1>Score: {score}</h1>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Score.propTypes = {
   score: PropTypes.number.isRequired

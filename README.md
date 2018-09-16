@@ -16,7 +16,7 @@ Below is some information about the project as well as some instructions of how 
 
 ## Basic Information
 
-The project is developed in [React](https://reactjs.org/) using [Bootstrap](https://getbootstrap.com/) as a toolkit for to create a nicer UI. The project uses [Jest](https://jestjs.io/) as a testing platform. The questions for the quiz are fetched from [Open Trivia DB](https://opentdb.com/api_config.php).
+The project is developed in [React](https://reactjs.org/) using [Bootstrap](https://getbootstrap.com/) as a toolkit for to create a nicer UI. The questions for the quiz are fetched from [Open Trivia DB](https://opentdb.com/api_config.php).
 
 ## Game Instructions
 
