@@ -20,7 +20,7 @@ The project is developed in [React](https://reactjs.org/) using [Bootstrap](http
 
 ## Game Instructions
 
-The first screen of the page is where you select the dersired difficulty. You can choose between Easy, Medium and Hard. When you click start game the game will start and you will get ten questions, one after another. Each question has four options to choose from. You have a time limit of 15 seconds for each question.
+The first screen of the page is where you select the dersired difficulty. You can choose between Easy, Medium and Hard. This will control the difficulty of the questions. When you click start game the game will start and you will get ten questions, one after another. Each question has four options to choose from. You have a time limit of 15 seconds for each question.
 
 ### Life Lines
 

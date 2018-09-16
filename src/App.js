@@ -21,10 +21,21 @@ class App extends Component {
 
     return (
       <div className="App container mt-3" style={appStyle}>
-        <h1>Welcome to Quiz Time</h1>
-        <h5>Here you can test yourself and see how much you really know!</h5>
-        {!startGame && <MainMenu startGame={this.startGame} />}
-        {startGame && <Game difficulty={difficulty} />}
+        {!startGame && (
+          <div>
+            <h1>Welcome to Quiz Time</h1>
+            <h5>
+              Here you can test yourself and see how much you really know!
+            </h5>
+            <MainMenu startGame={this.startGame} />
+          </div>
+        )}
+        {startGame && (
+          <div>
+            <h3>Quiz Time</h3>
+            <Game difficulty={difficulty} />
+          </div>
+        )}
       </div>
     );
   }

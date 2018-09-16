@@ -5,7 +5,7 @@ const DifficultySelector = props => {
   const { onClick } = props;
   return (
     <div>
-      <h3>Select difficulty</h3>
+      <h3>Select question difficulty</h3>
       <div className="row mx-auto">
         <button
           className="col btn btn-success m-1"
