@@ -19,6 +19,12 @@ const Results = props => {
         <h3>Incorrect Questions: {incorrect}</h3>
         <h3>Unanswered Questions: {unanswered}</h3>
       </div>
+      <button
+        className="btn btn-success"
+        onClick={() => window.location.reload()}
+      >
+        Restart Game
+      </button>
     </div>
   );
 };

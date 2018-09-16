@@ -15,13 +15,16 @@ const QuestionInput = props => {
             value={answers[0]}
             dangerouslySetInnerHTML={{ __html: `${answers[0]}` }}
           />
-
-          <button
-            className="btn btn-primary m-1"
-            onClick={onClick}
-            value={answers[1]}
-            dangerouslySetInnerHTML={{ __html: `${answers[1]}` }}
-          />
+          <div className="row">
+            <div className="col-sm">
+              <button
+                className="btn btn-primary m-1"
+                onClick={onClick}
+                value={answers[1]}
+                dangerouslySetInnerHTML={{ __html: `${answers[1]}` }}
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div className="row">
@@ -34,6 +37,10 @@ const QuestionInput = props => {
               dangerouslySetInnerHTML={{ __html: `${answers[2]}` }}
             />
           )}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-sm">
           {answers[3] !== undefined && (
             <button
               className="btn btn-primary m-1"

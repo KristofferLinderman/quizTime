@@ -111,7 +111,7 @@ class Question extends Component {
 
               <p dangerouslySetInnerHTML={{ __html: `${correctAnswer}` }} />
               <button onClick={this.nextQuestion} className="btn btn-primary">
-                Next Question
+                {id === 10 ? "Show Results" : "Next Question"}
               </button>
             </div>
           )}
